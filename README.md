@@ -9,6 +9,8 @@ Julia code for agent-based model of COVID-19 outbreaks and possible intervention
 ## Usage
 To use default model parameters:
 ```julia
+using COVID
+
 mod = Model()
 ```
 This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days, do
