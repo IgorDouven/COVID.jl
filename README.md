@@ -12,7 +12,7 @@ To use default model parameters:
 mod = Model()
 ```
 This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days, do
-```
+```julia
 mod = Model(max_tspan = 20)
 ```
 Similarly for the other parameters.
