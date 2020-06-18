@@ -30,7 +30,7 @@ cvd_plot(res)
 ```
 ![Results of updating the model for 100 time steps, showing the infected and recovered](./doc/IR.png)
 
-<img src="./doc/IR.png" width="20" />
+<img src="doc/IR.png" width="200" />
 
 If one would like to see a full SIRD output (so also plotting the susceptibles and showing separately the really recovered and the deceased), run
 ```julia
