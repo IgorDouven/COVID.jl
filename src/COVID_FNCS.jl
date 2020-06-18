@@ -17,22 +17,22 @@ mutable struct Agent
 end
 
 function create_model(N::Int, λ::Float64, hhs::Float64)
-	g = LightGraphs.SimpleGraph(LightGraphs.Generators.ErdosRenyi(N, round(Int, binomial(N, 2)*λ)))	
-	pop = Agent[]
-	for i in 1:N
-		r = 1 + rand(Poisson(hhs - 1.)) 
-		for j in 1:r
-			push!(pop, Agent(i, 0, :S))
-		end
-	end
-	links = [ length(neighbors(g, i)) for i in 1:N ]
-	quasi_isolated = collect(1:N)[links .< 2]
+    g = LightGraphs.SimpleGraph(LightGraphs.Generators.ErdosRenyi(N, round(Int, binomial(N, 2)*λ)))	
+    pop = Agent[]
+    for i in 1:N
+        r = 1 + rand(Poisson(hhs - 1.)) 
+        for j in 1:r
+            push!(pop, Agent(i, 0, :S))
+        end
+    end
+    links = [ length(neighbors(g, i)) for i in 1:N ]
+    quasi_isolated = collect(1:N)[links .< 2]
     inds = [ pop[i].pos ∉ quasi_isolated for i in 1:length(pop) ]
     ag_zeros = sample(collect(1:length(pop))[inds], length(pop) ÷ 100, replace=false) # around 1 percent of population is infected
     for i in ag_zeros
         pop[i] = Agent(pop[i].pos, 1, :I)
     end
-	return pop, g
+    return pop, g
 end
 
 function meet(p::Array{Agent,1}, 
@@ -167,8 +167,8 @@ end
 
 function run_model(ps::ParameterSetting, w::Float64, numb_updates::Int)
     @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
-    population, graph = create_model(N, λ, hhs)
-    out = abm_run(population, graph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death, numb_updates)
-    s = sum(retrieve_data(population), dims=1)
+    ppl, grph = create_model(N, λ, hhs)
+    out = abm_run(ppl, grph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death, numb_updates)
+    s = sum(retrieve_data(ppl), dims=1)
     return vcat(s, out)
 end
