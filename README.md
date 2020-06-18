@@ -6,7 +6,7 @@ Julia code for agent-based model of COVID-19 outbreaks and possible intervention
 ```julia
 ] add https://github.com/IgorDouven/COVID.jl
 ```
-## Basic usage
+## Usage
 To use default parameter setting:
 ```julia
 using COVID
@@ -31,4 +31,10 @@ cvd_plot(res)
 If one would like to see a full SIRD output (so also plotting the susceptibles and showing separately the really recovered and the deceased), run
 ```julia
 cvd_plot(res, sird=true)
+```
+To study the effect of changing the probability of staying at home, one can do, for instance,
+```julia
+switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3) # 10 steps with a probability of .3, followed by 15 steps with a probability of .9, followed by ten steps with a probability of .6, and this repeated thrice
+
+res = run_model(params, switch_pts)
 ```
