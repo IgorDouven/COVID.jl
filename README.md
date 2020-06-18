@@ -7,24 +7,24 @@ Julia code for agent-based model of COVID-19 outbreaks and possible intervention
 ] add https://github.com/IgorDouven/COVID.jl
 ```
 ## Usage
-To use default model parameters:
+To use default parameter setting:
 ```julia
 using COVID
 
-mod = Model()
+params = ParameterSetting()
 ```
-This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days, do
+This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size to 6.5, do
 ```julia
-mod = Model(max_tspan = 20)
+params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
-Similarly for the other parameters.
+Similarly for the other parameters. NB: the output from calling `ParameterSetting()` also tells you the types of the various parameters; these have to be respected (so if you want to set the average household size to 6, enter this as `ParameterSetting(hhs = 6.)`).
 
 Then to let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
 ```julia
-res = sim_run(mod, .4, 100)
+res = run_model(params, .4, 100)
 ```
 
-The following plots the infected and recovered (including deceased) at any point in time:
+The following plots the infected and recovered (which includes the deceased) at all points in time:
 ```julia
 cvd_plot(res)
 ```
