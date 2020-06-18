@@ -6,7 +6,7 @@ An agent-based approach to modeling COVID-19 outbreaks and possible intervention
 module COVID
 
 export
-	ParameterSetting,
+    ParameterSetting,
     create_model,
     model_update!,
     abm_run,
