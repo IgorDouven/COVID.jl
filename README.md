@@ -41,4 +41,5 @@ To study the effect of changing the probability of staying at home, one can do, 
 switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3) 
 res = run_model(params, switch_pts)
 ```
-which updates the model during 10 steps assuming a probability of .3, followed by 15 steps assuming a probability of .9, followed by 10 steps assuming a probability of .6, and this repeated thrice.
+which updates the model during 10 steps assuming a probability of .3, followed by 15 steps assuming a probability of .9, followed by 10 steps assuming a probability of .6, and this repeated thrice. This yields the following result:
+![Updating the model while switching the stay-at-home probability at various points in time](./doc/switch_SIRD.png)
