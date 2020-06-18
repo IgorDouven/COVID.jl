@@ -1,5 +1,5 @@
 # default parameter settings justified by what has been reported about coronavirus disease 2019 (COVID-19) up till beginning of June, 2020
-@with_kw struct Model
+@with_kw struct ParameterSetting
     max_tspan::Int = 24 # maximum duration of infection
     pr_quick_rec::Float64 = .5 # half the infected recover in `max_tspan`/2 days
     trans_rate::Float64 = .04 # transmission rate
@@ -7,6 +7,7 @@
     pr_death::Float64 = .1 # probability of death
     N::Int = 1000 # number of households
     λ::Float64 = .0125 # probability that two nodes are connected
+    hhs::Float64 = 4. # average household size
 end
 
 mutable struct Agent
@@ -15,12 +16,12 @@ mutable struct Agent
     status::Symbol
 end
 
-function create_model(N::Int, λ::Float64)
+function create_model(N::Int, λ::Float64, hhs::Float64)
 	g = LightGraphs.SimpleGraph(LightGraphs.Generators.ErdosRenyi(N, round(Int, binomial(N, 2)*λ)))	
 	pop = Agent[]
 	for i in 1:N
-		r = 1 + rand(Poisson(3)) 
-    		for j in 1:r
+		r = 1 + rand(Poisson(hhs - 1.)) 
+    	for j in 1:r
 			push!(pop, Agent(i, 0, :S))
 		end
 	end
@@ -164,9 +165,9 @@ function abm_run(p::Array{Agent,1},
     return out
 end
 
-function sim_run(m::Model, w::Float64, numb_updates::Int)
-    @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ = m
-    population, graph = create_model(N, λ)
+function run_model(ps::ParameterSetting, w::Float64, numb_updates::Int)
+    @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
+    population, graph = create_model(N, λ, hhs)
     out = abm_run(population, graph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death, numb_updates)
     s = sum(retrieve_data(population), dims=1)
     return vcat(s, out)
