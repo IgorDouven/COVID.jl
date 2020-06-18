@@ -6,7 +6,7 @@ Julia code for agent-based model of COVID-19 outbreaks and possible intervention
 ```julia
 ] add https://github.com/IgorDouven/COVID.jl
 ```
-## Usage
+## Basic usage
 To use default parameter setting:
 ```julia
 using COVID
