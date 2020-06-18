@@ -34,7 +34,7 @@ cvd_plot(res, sird=true)
 ```
 To study the effect of changing the probability of staying at home, one can do, for instance,
 ```julia
-switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3) # 10 steps with a probability of .3, followed by 15 steps with a probability of .9, followed by ten steps with a probability of .6, and this repeated thrice
-
+switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3) 
 res = run_model(params, switch_pts)
 ```
+which updates the model during 10 steps assuming a probability of .3, followed by 15 steps assuming a probability of .9, followed by 10 steps assuming a probability of .6, and this repeated thrice.
