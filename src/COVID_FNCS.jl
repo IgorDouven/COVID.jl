@@ -165,10 +165,39 @@ function abm_run(p::Array{Agent,1},
     return out
 end
 
+function abm_switch(p::Array{Agent,1},
+                    g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64},
+                    N::Int,
+                    sps::Array{Tuple{Float64,Int64},1},
+                    mt::Int,
+                    pqr::Float64,
+                    tr::Float64,
+                    d::Int,
+                    prd::Float64)
+    p_dc = deepcopy(p)
+    numb_updates = last.(sps) |> sum
+    ws = @pipe [ fill(first(sps[i]), last(sps[i])) for i in 1:length(sps) ] |> reduce(vcat, _)
+    res_array = Array{Int64,3}(undef, N, 4, numb_updates)
+    @inbounds for i in 1:numb_updates
+        res_array[:, :, i] = model_update!(p_dc, g, ws[i], mt, pqr, tr, d, prd)
+    end
+    res_totals = [ sum(res_array[:, :, i], dims=1) for i in 1:numb_updates ]
+    out = reduce(vcat, res_totals)
+    return out
+end
+
 function run_model(ps::ParameterSetting, w::Float64, numb_updates::Int)
     @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
     ppl, grph = create_model(N, λ, hhs)
     out = abm_run(ppl, grph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death, numb_updates)
+    s = sum(retrieve_data(ppl), dims=1)
+    return vcat(s, out)
+end
+
+function run_model(ps::ParameterSetting, sps::Array{Tuple{Float64,Int64},1})
+    @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
+    ppl, grph = create_model(N, λ, hhs)
+    out = abm_switch(ppl, grph, N, sps, max_tspan, pr_quick_rec, trans_rate, drop, pr_death)
     s = sum(retrieve_data(ppl), dims=1)
     return vcat(s, out)
 end

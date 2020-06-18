@@ -19,6 +19,7 @@ using StatsBase
 using LightGraphs
 using Parameters
 using Plots
+using Pipe
 
 include("COVID_FNCS.jl")
 include("COVID_PLOT.jl")
