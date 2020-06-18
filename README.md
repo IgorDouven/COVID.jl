@@ -17,7 +17,7 @@ This shows which fields can be altered. For instance, to change the maximum dura
 ```julia
 params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
-Similarly for the other parameters. NB: the output from calling `ParameterSetting()` also tells you the types of the various parameters; these have to be respected (so if you want to set the average household size to 6, enter this as `ParameterSetting(hhs = 6.)`).
+Similarly for the other parameters. NB: the output from calling `ParameterSetting()` also tells you the types of the various parameters; these have to be respected (so if, e.g., you want to set the average household size to 6, enter this as `ParameterSetting(hhs = 6.)`).
 
 Then to let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
 ```julia
