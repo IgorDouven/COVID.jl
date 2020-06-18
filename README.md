@@ -29,10 +29,13 @@ The following plots the infected and recovered (which includes the deceased) at 
 cvd_plot(res)
 ```
 ![Results of updating the model for 100 time steps, showing the infected and recovered](./doc/IR.png)
+
 If one would like to see a full SIRD output (so also plotting the susceptibles and showing separately the really recovered and the deceased), run
 ```julia
 cvd_plot(res, sird=true)
 ```
+![Same results, now showing also the susceptibles and separating the really recovered from the deceased](./doc/SIRD.png)
+
 To study the effect of changing the probability of staying at home, one can do, for instance,
 ```julia
 switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3) 
