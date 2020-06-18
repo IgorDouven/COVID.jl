@@ -21,7 +21,7 @@ function create_model(N::Int, λ::Float64, hhs::Float64)
 	pop = Agent[]
 	for i in 1:N
 		r = 1 + rand(Poisson(hhs - 1.)) 
-    	for j in 1:r
+		for j in 1:r
 			push!(pop, Agent(i, 0, :S))
 		end
 	end
