@@ -13,7 +13,7 @@ using COVID
 
 params = ParameterSetting()
 ```
-This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size, `hhs`, to 6.5, do
+This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan` (default = 24), to 20 days and the average household size, `hhs` (default = 4), to 6.5, do
 ```julia
 params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
