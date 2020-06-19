@@ -17,14 +17,11 @@ function cvd_plot(res::Array{Int64,2}; sird=false)
     end
 end
 
-#wgt_plt(rs::Array{Float64,2}) = plot(0:size(rs, 1) - 1, rs[:, 5], legend = false, xlabel = "Time", ylabel = "Weight", lwd = 5)
-
 function cvd_plot(res::Array{Float64,2}; sird=false)
     l, _ = size(res)
     p1 = if sird == true
         plot(0:l - 1, res[:, 1:4], 
-            label = ["Susceptible" "Infected" "Recovered" "Deceased"], 
-            xlabel = "Time",
+            label = ["Susceptible" "Infected" "Recovered" "Deceased"],
             ylabel = "Count",
             lwd = 5)
     else
