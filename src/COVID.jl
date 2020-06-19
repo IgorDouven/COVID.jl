@@ -11,6 +11,7 @@ export
     model_update!,
     abm_run,
     run_model,
+    run_flex,
     cvd_plot
 
 using Distributions
@@ -22,6 +23,7 @@ using Plots
 using Pipe
 
 include("COVID_FNCS.jl")
+include("COVID_FLEX.jl")
 include("COVID_PLOT.jl")
 
 end
