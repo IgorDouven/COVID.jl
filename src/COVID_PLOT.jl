@@ -36,11 +36,4 @@ function cvd_plot(res::Array{Float64,2}; sird=false)
     end
 end
 
-function weight_plot(res::Array{Float64,2})
-    l, _ = size(res)
-    plot(0,l - 1, res[:, 5],
-         xlabel = "Time",
-         ylabel = "Weight",
-         lwd = 5,
-         legend = false)
-end
+wgt_plot(rs::Array{Float64,2}) = plot(0:size(rs, 1) - 1, rs[:, 5], legend=false, xlabel = "Time", ylabel="Weight", lwd = 5)
