@@ -6,7 +6,7 @@ Julia code for agent-based model of COVID-19 outbreaks and possible intervention
 ```julia
 ] add https://github.com/IgorDouven/COVID.jl
 ```
-## Usage
+## Basic usage
 To use default parameter setting:
 ```julia
 using COVID
@@ -43,3 +43,5 @@ res = run_model(params, switch_pts)
 ```
 which updates the model during 10 steps assuming a probability of .3, followed by 15 steps assuming a probability of .9, followed by 10 steps assuming a probability of .6, and this repeated thrice. This yields the following result:
 ![Updating the model while switching the stay-at-home probability at various points in time](./doc/switch_SIRD.png)
+
+## Flexible lockdowns
