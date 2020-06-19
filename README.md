@@ -45,3 +45,7 @@ which updates the model during 10 steps assuming a probability of .3, followed b
 ![Updating the model while switching the stay-at-home probability at various points in time](./doc/switch_SIRD.png)
 
 ## Flexible lockdowns
+We closely monitor the trend in the number of new daily infections and accordingly adjust the weight (the probability that people will stay home rather than go out to visit someone in their network). In this system of 'flexible lockdowns', there are two free parameters, the size of the sliding window used for the local regressions, and the scaling factor, which scales the local regression coefficient to adjust the weight. In the example below, we use the same model parameters as above and assume a scaling factor of 0.025 and a window size of 6 to update the model for 300 time steps:
+```julia
+res = run_flex(params, .025, 6, 300)
+```
