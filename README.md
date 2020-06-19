@@ -1,6 +1,6 @@
 # COVID.jl
 
-Julia pacakge for agent-based modeling of COVID-19 outbreaks and possible intervention strategies.
+Julia package for agent-based modeling of COVID-19 outbreaks and possible intervention strategies.
 
 ## Installation
 ```julia
