@@ -12,7 +12,8 @@ export
     abm_run,
     run_model,
     run_flex,
-    cvd_plot
+    cvd_plot,
+    weight_plot
 
 using Distributions
 using Random
