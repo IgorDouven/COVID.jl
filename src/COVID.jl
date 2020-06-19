@@ -12,8 +12,7 @@ export
     abm_run,
     run_model,
     run_flex,
-    cvd_plot,
-    wgt_plot
+    cvd_plot
 
 using Distributions
 using Random
