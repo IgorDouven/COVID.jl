@@ -8,7 +8,7 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
     daily_inf = Vector{Int64}(undef, numb_updates)
     daily_rec = Vector{Int64}(undef, numb_updates)
     daily_dead = Vector{Int64}(undef, numb_updates)
-    weights = Vector{Float64}(undef, numb_updates)
+    wgts = Vector{Float64}(undef, numb_updates)
     
     @inbounds for i in 1:window
         model_update!(ppl, grph, init_w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death)
@@ -16,7 +16,7 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
         daily_inf[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :I))
         daily_rec[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :R))
         daily_dead[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :D))
-        weights[i] = init_w
+        wgts[i] = init_w
     end
 
     ps = .0
@@ -31,8 +31,8 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
         daily_inf[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :I))
         daily_rec[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :R))
         daily_dead[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :D))
-        weights[i] = w
+        wgts[i] = w
     end
     s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
-    return vcat(s, hcat(daily_sus, daily_inf, daily_rec, daily_dead, weights))
+    return vcat(s, hcat(daily_sus, daily_inf, daily_rec, daily_dead, wgts))
 end
