@@ -49,3 +49,11 @@ We closely monitor the trend in the number of new daily infections and according
 ```julia
 res = run_flex(params, .025, 6, 300)
 ```
+
+We can again plot the outcome using
+```julia
+cvd_plot(res, sird=true)
+```
+
+which yields the following result:
+![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/switch.png)
