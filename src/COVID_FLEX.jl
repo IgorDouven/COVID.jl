@@ -33,6 +33,6 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
         daily_dead[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :D))
         weights[i] = w
     end
-    s = vcat(sum(retrieve_data(ppl), dims=1), init_w)
+    s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
     return vcat(s, hcat(daily_sus, daily_inf, daily_rec, daily_dead, weights))
 end
