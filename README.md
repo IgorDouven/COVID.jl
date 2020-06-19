@@ -1,6 +1,6 @@
 # COVID.jl
 
-Julia code for agent-based model of COVID-19 outbreaks and possible intervention strategies.
+Julia pacakge for agent-based modeling of COVID-19 outbreaks and possible intervention strategies.
 
 ## Installation
 ```julia
