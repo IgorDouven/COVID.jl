@@ -34,5 +34,5 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
         wgts[i] = w
     end
     s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
-    return vcat(s, hcat(daily_sus, daily_inf, daily_rec, daily_dead, wgts))
+    return vcat(s', hcat(daily_sus, daily_inf, daily_rec, daily_dead, wgts))
 end
