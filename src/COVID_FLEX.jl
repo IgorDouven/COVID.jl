@@ -4,6 +4,7 @@ rich_scaled(x::Float64) = richard(x, .0, 1., .95, 1., 1.) # for the illustration
 function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_updates::Int; init_w=.5)
     @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
     ppl, grph = create_model(N, λ, hhs)
+    s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
     daily_sus = Vector{Int64}(undef, numb_updates)
     daily_inf = Vector{Int64}(undef, numb_updates)
     daily_rec = Vector{Int64}(undef, numb_updates)
@@ -33,6 +34,5 @@ function run_flex(ps::ParameterSetting, scale::Float64, window::Int, numb_update
         daily_dead[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :D))
         wgts[i] = w
     end
-    s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
     return vcat(s', hcat(daily_sus, daily_inf, daily_rec, daily_dead, wgts))
 end
