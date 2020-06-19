@@ -39,4 +39,3 @@ function cvd_plot(res::Array{Float64,2}; sird=false)
     p2 = plot(0:l - 1, res[:, 5], legend = false, xlabel = "Time", ylabel = "Weight", lwd = 5)
     return plot(p1, p2, layout = (2, 1))
 end
-
