@@ -13,7 +13,7 @@ export
     run_model,
     run_flex,
     cvd_plot,
-    weight_plot
+    wgt_plot
 
 using Distributions
 using Random
