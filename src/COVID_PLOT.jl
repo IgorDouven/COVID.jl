@@ -25,9 +25,9 @@ function cvd_plot(res::Array{Float64,2})
          ylabel = "Count",
          lwd = 5)
     p2 = plot(0,l - 1, res[:, 5],
+         label = ["Weight"],
          xlabel = "Time",
-         ylabel = "Weight",
-         lwd = 5,
-         legend = false)
+         ylabel = "Value",
+         lwd = 5)
     plot(p1, p2, layout = (2, 1))
 end
