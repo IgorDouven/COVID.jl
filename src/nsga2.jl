@@ -62,7 +62,8 @@ function mix(p::Proposal, q::Proposal)
     return Proposal(w, s)
 end
 
-function crossover(v::Array{Proposal,1}, parent_pop_size::Int)
+function crossover(v::Array{Proposal,1})
+	parent_pop_size = length(v)
     child_arr = Array{Proposal,1}(undef, parent_pop_size)
     @inbounds for i in 1:parent_pop_size
         x, y = sample(1:parent_pop_size, 2, replace = false)
@@ -72,9 +73,8 @@ function crossover(v::Array{Proposal,1}, parent_pop_size::Int)
 end
 
 function new_gen(v::Array{Proposal,1}; prob = 0.05)
-	parent_pop_size = length(v)
-    pop = vcat(v, crossover(v, parent_pop_size))
-    s = sample(1:2*parent_pop_size, floor(Int, 100*prob), replace = false)
+    pop = vcat(v, crossover(v))
+    s = sample(1:length(pop), floor(Int, 100*prob), replace = false)
     @inbounds for i ∈ s
 	pop[i] = rand_proposal()
     end
