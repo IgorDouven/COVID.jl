@@ -63,7 +63,7 @@ function mix(p::Proposal, q::Proposal)
 end
 
 function crossover(v::Array{Proposal,1})
-	parent_pop_size = length(v)
+    parent_pop_size = length(v)
     child_arr = Array{Proposal,1}(undef, parent_pop_size)
     @inbounds for i in 1:parent_pop_size
         x, y = sample(1:parent_pop_size, 2, replace = false)
