@@ -15,6 +15,7 @@ export
     run_evo,
     cvd_plot
 
+using Distributed
 using Distributions
 using Distances
 using LinearAlgebra
