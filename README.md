@@ -58,3 +58,15 @@ cvd_plot(res, sird=true)
 which yields the following result:
 
 ![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/flex.png)
+
+## Evolutionary computing
+
+```julia
+using Distributed
+addprocs()
+@everywhere using COVID
+
+@everywhere params = ParameterSetting()
+
+run_evo(params, 150, 15, 24)
+```
