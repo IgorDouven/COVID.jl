@@ -51,8 +51,8 @@ function meet(p::Array{Agent,1},
             sel_ag = [ p_sel[j].status == :S || (0 < p_sel[j].tspan <= ts) for j in 1:length(p_sel) ]
             push!(weight_lst, length(sel_ag))
         end
-        s = ifelse(isempty(weight_lst), a.pos, sample(nbs, Weights(weight_lst)))
-        v = ifelse(rand(Bernoulli(w)), a.pos, s)
+        s = isempty(weight_lst) ? a.pos : sample(nbs, Weights(weight_lst))
+        v = rand(Bernoulli(w)) ? a.pos : s
         return v
     end
 end
