@@ -71,7 +71,7 @@ function crossover(v::Array{Proposal,1}, parent_pop_size::Int)
     return child_arr
 end
 
-function new_gen(v::Array{Proposal,1}, prob = 0.05, parent_pop_size::Int) 
+function new_gen(v::Array{Proposal,1}, parent_pop_size::Int; prob = 0.05) 
     pop = vcat(v, crossover(v, parent_pop_size))
     s = sample(1:2*parent_pop_size, floor(Int, 100*prob), replace = false)
     @inbounds for i ∈ s
