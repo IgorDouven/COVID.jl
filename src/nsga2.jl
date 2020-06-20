@@ -151,7 +151,7 @@ end
 
 extract_pams(p::Proposal) = (p.W, p.S)
 
-function run_sim(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_pop_size::Int)
+function run_evo(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_pop_size::Int)
     pms_ar = Array{Tuple{Int64,Float64},1}[]
     start_pop = [ rand_proposal() for _ in 1:parent_pop_size ]
     push!(pms_ar, extract_pams.(start_pop))
