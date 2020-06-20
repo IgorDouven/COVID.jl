@@ -13,11 +13,21 @@ using COVID
 
 params = ParameterSetting()
 ```
-This shows which fields can be altered. For instance, to change the maximum duration of infection, `max_tspan` (default = 24), to 20 days and the average household size, `hhs` (default = 4), to 6.5, do
+This has eight fields:
+- `max_tspan` (type: `Int`): maximum duration of infection, by default equal to 24;
+- `pr_quick_rec` (type: `Float64`): the proportion infected that recover in `max_tspan`/2 days, by default .5;
+- `trans_rate` (type: `Float64`): transmission rate, by default .04;
+- `drop` (type: `Int`): by how much the infectiousness drops if the infection last longer than half of `max_tspan`, by default 4;
+- `pr_death` (type: `Float64`): probability of death of an infected agent, by default .1;
+- `N` (type: `Int`): number of households, by default 1000;
+- `λ` (type: `Float64`): probability that two nodes are connected, by default .0125;
+- `hhs` (type: `Float64`): average household size, by default 4.
+
+All default settings can be changed. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size, `hhs` to 6.5, enter
 ```julia
 params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
-Similarly for the other parameters. NB: the output from calling `ParameterSetting()` also tells you the types of the various parameters; these have to be respected (so if, e.g., you want to set the average household size to 6, enter this as `ParameterSetting(hhs = 6.)`).
+Similarly for the other parameters. NB: The types of the various parameters have to be respected. So if, for instance, you want to set the average household size to 6 (but leave the other parameters at their default value), enter this as `ParameterSetting(hhs = 6.)`.
 
 Then to let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
 ```julia
