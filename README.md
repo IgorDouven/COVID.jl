@@ -70,6 +70,7 @@ which yields the following result:
 ![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/flex.png)
 
 ## Evolutionary computing
+To find the Pareto-optimal solutions to the question of which window size and which scaling factor to use, we use an evolutionary algorithm, more exactly the NSGA-II algorithm ().
 
 ```julia
 using Distributed
