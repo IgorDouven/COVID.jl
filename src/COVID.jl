@@ -17,6 +17,7 @@ export
 using Distributions
 using Random
 using StatsBase
+using StaticArrays
 using LightGraphs
 using Parameters
 using Plots
@@ -24,6 +25,7 @@ using Pipe
 
 include("COVID_FNCS.jl")
 include("COVID_FLEX.jl")
+include("nsga2.jl")
 include("COVID_PLOT.jl")
 
 end
