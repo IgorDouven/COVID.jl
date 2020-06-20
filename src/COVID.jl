@@ -12,9 +12,13 @@ export
     abm_run,
     run_model,
     run_flex,
+    run_evo,
     cvd_plot
 
 using Distributions
+using Distances
+using LinearAlgebra
+using DataFrames
 using Random
 using StatsBase
 using StaticArrays
