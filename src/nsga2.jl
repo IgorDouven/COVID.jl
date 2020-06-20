@@ -71,9 +71,9 @@ function crossover(v::Array{Proposal,1}, parent_pop_size::Int)
     return child_arr
 end
 
-function new_gen(v::Array{Proposal,1}, prob = 0.05, pop_size::Int) 
-    pop = vcat(v, crossover(v))
-    s = sample(1:pop_size, floor(Int, 100*prob), replace = false)
+function new_gen(v::Array{Proposal,1}, prob = 0.05, parent_pop_size::Int) 
+    pop = vcat(v, crossover(v, parent_pop_size))
+    s = sample(1:2*parent_pop_size, floor(Int, 100*prob), replace = false)
     @inbounds for i ∈ s
 	pop[i] = rand_proposal()
     end
@@ -133,15 +133,15 @@ function sim_fnc_nsga(ps::ParameterSetting, p::Proposal, numb_updates::Int; n_te
     return dec / n_test, uc / n_test, wgts / n_test
 end
 
-function select_best(ps::ParameterSetting, arr::Array{Proposal,1}, numb_updates::Int, parent_pop_size::Int, pop_size::Int)
+function select_best(ps::ParameterSetting, arr::Array{Proposal,1}, numb_updates::Int, parent_pop_size::Int)
     scores = Matrix(DataFrame(pmap(i -> sim_fnc_nsga(ps, arr[i], numb_updates), 1:length(arr))))
     cdist = crowdingDistance(scores)
     ranking = fast_nds(scores)
-    rnkInd = Vector{Int64}(undef, pop_size)
+    rnkInd = Vector{Int64}(undef, 2*parent_pop_size)
     @inbounds for i in 1:length(ranking)
         rnkInd[ranking[i]] .= i
     end
-    ns = hcat(rnkInd, cdist[:], 1:pop_size)
+    ns = hcat(rnkInd, cdist[:], 1:2*parent_pop_size)
     p2 = sortperm(view(ns, :, 2))
     s1 = ns[p2, :]
     p1 = sortperm(view(s1, :, 1))
@@ -152,15 +152,13 @@ end
 extract_pams(p::Proposal) = (p.W, p.S)
 
 function run_sim(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_pop_size::Int)
-    child_pop_size = parent_pop_size
-    pop_size = parent_pop_size + child_pop_size
     pms_ar = Array{Tuple{Int64,Float64},1}[]
     start_pop = [ rand_proposal() for _ in 1:parent_pop_size ]
     push!(pms_ar, extract_pams.(start_pop))
     scrs = Array{Float64,3}(undef, parent_pop_size, 3, numb_gen)
     for i in 1:numb_gen
         new_pop = [ Proposal(pms_ar[i][j]...) for j in 1:parent_pop_size ]
-        out_pop, out_scrs = select_best(ps, new_gen(new_pop), numb_updates, parent_pop_size, pop_size)
+        out_pop, out_scrs = select_best(ps, new_gen(new_pop), numb_updates, parent_pop_size)
         push!(pms_ar, extract_pams.(out_pop))
         scrs[:, :, i] = out_scrs
     end
