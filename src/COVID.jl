@@ -11,7 +11,6 @@ export
     model_update!,
     abm_run,
     run_model,
-    run_flex,
     run_evo,
     cvd_plot
 
