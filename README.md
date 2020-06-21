@@ -31,7 +31,9 @@ Similarly for the other parameters.
 
 **NB** (if you are new to Julia): The types of the various parameters have to be respected. So if, for instance, you want to set the average household size to 6 (but leave the other parameters at their default value), enter this as `ParameterSetting(hhs = 6.)`.
 
-Then to let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
+Here, `N`, `λ`, and `hhs` are used to set up an Erd\H{o}s--R\'enyi graph. One can easily change this by going into the source code, in particular the file `COVID_FNCS.jl`, and change the function `create_model`. The package `LightGraphs.jl` offers several alternatives to an Erd\H{o}s--R\'enyi graph, which can be plugged into the said function.
+
+To let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
 ```julia
 res = run_model(params, .4, 100)
 ```
@@ -93,4 +95,4 @@ run_evo(params, 150, 15, 24)
 
 This outputs the Pareto-optimal solutions. One can also obtain the full information about each generation (agent properties as well as scores) by running `run_evo(params, 150, 15, 24, full=true)`.
 
-**Warning**: the above code took over an hour to finish on a 24-core machine.
+**Warning**: the above code took over two hours to finish on a 24-core machine.
