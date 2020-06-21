@@ -23,7 +23,6 @@ function crowdingDistance(arr::Array{Float64,2})
     return c_sum
 end
 
-# the following is Deb's fast non dominating sorting algorithm
 function dominates(x, y)
     strict_inequality_found = false
     for i ∈ eachindex(x)
