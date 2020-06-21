@@ -4,5 +4,3 @@
 .vscode
 .DS_Store
 /Manifest.toml
-/docs/build/
-/docs/site/
