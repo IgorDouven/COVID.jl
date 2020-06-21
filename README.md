@@ -13,7 +13,7 @@ using COVID
 
 params = ParameterSetting()
 ```
-This has eight fields:
+This sets the values of eight parameters:
 - `max_tspan` (type: `Int`): maximum duration of infection, by default equal to 24;
 - `pr_quick_rec` (type: `Float64`): the proportion infected that recover in `max_tspan`/2 days, by default .5;
 - `trans_rate` (type: `Float64`): transmission rate, by default .04;
