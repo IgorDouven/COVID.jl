@@ -36,7 +36,7 @@ Then to let a model update for, say, 100 days, assuming that the probability tha
 res = run_model(params, .4, 100)
 ```
 
-Assuming this setting of this example, the following plots the infected and recovered (which includes the deceased) at all points in time:
+Assuming the settings of the example, the following plots the infected and recovered (which includes the deceased) at all 100 time steps:
 ```julia
 cvd_plot(res)
 ```
