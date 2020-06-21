@@ -163,8 +163,8 @@ function run_evo(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_
         scrs[:, :, i] = out_scrs
     end
 	
-	pf = fast_nds(scrs[:, :, end])
-	pareto_front = pms_ar[end][pf[1]]
+    pf = fast_nds(scrs[:, :, end])
+    pareto_front = pms_ar[end][pf[1]]
 
     return full == true ? pms_ar, scrs, pareto_front : pareto_front
 end
