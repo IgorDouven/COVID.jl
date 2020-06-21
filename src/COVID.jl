@@ -7,9 +7,6 @@ module COVID
 
 export
     ParameterSetting,
-    create_model,
-    model_update!,
-    abm_run,
     run_model,
     run_evo,
     cvd_plot
