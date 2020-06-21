@@ -76,6 +76,7 @@ To find the Pareto-optimal solutions to the question of which window size and wh
 1. number of direct deaths;
 2. undercapacity of critical care;
 3. suppression of social (and consequently economic) activity.
+
 Each proposed solution is scored in light of these criteria on five consecutive runs of `numb_updates` units of time. The best proposals are selected for the next generation, which consists of them and the offspring they are allowed to have.
 
 Evolutionary algorithms are computationally costly, so it is recommend to make full use of parallel computing (which is easy to do in Julia). The following runs the NSGA-II algorithm for 15 generations, starting with a parent population of 24 (meaning that a generation will consist of 48 agents, i.e., solutions), and the tests are conducted on the basis of 150 updates:
