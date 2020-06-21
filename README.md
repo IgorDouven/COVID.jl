@@ -70,7 +70,13 @@ which yields the following result:
 ![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/flex.png)
 
 ## Evolutionary computing
-To find the Pareto-optimal solutions to the question of which window size and which scaling factor to use, we use an evolutionary algorithm, more exactly the NSGA-II algorithm (N. Srinivas & K. Deb, 1994, "Multiobjective Optimization Using Nondominated Sorting in Genetic Algorithms," _Evolutionary Computing_, **2**, pp. 221-48).
+To find the Pareto-optimal solutions to the question of which window size and which scaling factor to use, we recruit an evolutionary algorithm, more exactly the NSGA-II algorithm (N. Srinivas & K. Deb, 1994, "Multiobjective Optimization Using Nondominated Sorting in Genetic Algorithms," _Evolutionary Computing_, **2**, pp. 221-48). The objective functions to jointly minimize are:
+1. number of direct deaths;
+2. undercapacity of critical care;
+3. suppression of social (and consequently economic) activity.
+Each proposed solution is scored in light of these criteria on five consecutive runs of `numb_updates` units of time. The best proposals are selected for the next generation, which consists of them and the offspring they are allowed to have.
+
+Evolutionary algorithms are computationally costly, so it is recommend to make full use of parallel computing (which is easy to do in Julia). The following runs the NSGA-II algorithm for 15 generations, starting with a parent population of 24 (meaning that a generation will consist of 48 agents, i.e., solutions), and the tests are conducted on the basis of 150 updates:
 
 ```julia
 using Distributed
@@ -81,3 +87,7 @@ addprocs()
 
 run_evo(params, 150, 15, 24)
 ```
+
+This outputs the Pareto-optimal solutions. One can also obtain the full information about each generation (agent properties as well as scores) by running `run_evo(params, 150, 15, 24, full=true)`.
+
+**Warning**: executing the above code took over an hour on a 24-core machine.
