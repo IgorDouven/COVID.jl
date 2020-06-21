@@ -27,7 +27,9 @@ All default settings can be changed. For instance, to change the maximum duratio
 ```julia
 params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
-Similarly for the other parameters. NB: The types of the various parameters have to be respected. So if, for instance, you want to set the average household size to 6 (but leave the other parameters at their default value), enter this as `ParameterSetting(hhs = 6.)`.
+Similarly for the other parameters.
+
+**NB** (if you are new to Julia): The types of the various parameters have to be respected. So if, for instance, you want to set the average household size to 6 (but leave the other parameters at their default value), enter this as `ParameterSetting(hhs = 6.)`.
 
 Then to let a model update for, say, 100 days, assuming that the probability that agents will stay home on any given day rather than visit one of their contacts equals .4, use
 ```julia
