@@ -122,7 +122,7 @@ function sim_fnc_nsga(ps::ParameterSetting, p::Proposal, numb_updates::Int; n_te
     i = 1
     while i <= n_test
         res = intervene(ps, p, numb_updates)
-        if first(res) < 5 # epidemic didn't get off the ground
+        if first(res) < 4 # epidemic didn't get off the ground
             i -= 1
         else
             dec += first(res)
@@ -152,7 +152,7 @@ end
 
 extract_pams(p::Proposal) = (p.W, p.S)
 
-function run_evo(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_pop_size::Int)
+function run_evo(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_pop_size::Int; full=false)
     pms_ar = Array{Tuple{Int64,Float64},1}[]
     start_pop = [ rand_proposal() for _ in 1:parent_pop_size ]
     push!(pms_ar, extract_pams.(start_pop))
@@ -163,5 +163,9 @@ function run_evo(ps::ParameterSetting, numb_updates::Int, numb_gen::Int, parent_
         push!(pms_ar, extract_pams.(out_pop))
         scrs[:, :, i] = out_scrs
     end
-    return pms_ar, scrs
+	
+	pf = fast_nds(scrs[:, :, end])
+	pareto_front = pms_ar[end][pf[1]]
+
+    return full == true ? pms_ar, scrs, pareto_front : pareto_front
 end
