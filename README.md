@@ -24,7 +24,7 @@ This sets the values of eight parameters:
 - `λ` (type: `Float64`): probability that two nodes are connected, by default .0125;
 - `hhs` (type: `Float64`): average household size, by default 4.
 
-All default settings can be changed. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size, `hhs` to 6.5, enter
+The default settings can be changed. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size, `hhs` to 6.5, enter
 ```julia
 params = ParameterSetting(max_tspan = 20, hhs = 6.5)
 ```
