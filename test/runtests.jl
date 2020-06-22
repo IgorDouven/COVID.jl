@@ -2,7 +2,7 @@ using COVID
 using Test
 
 @testset "COVID.jl" begin
-    pop, gr = create_model(100, .1, 4.)
-    @test pop[end].pos == 100
-    @test length(gr) == 10000
+    params = ParameterSetting()
+    res = run_model(params, .4, 20)
+    @test typeof(res) == Array{Int64,2}
 end
