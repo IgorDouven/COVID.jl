@@ -9,5 +9,5 @@ using Test
     res3 = run_model(params, .03, 6, 20)
     @test typeof(res1) == Array{Int64,2}
     @test typeof(res2) == Array{Int64,2}
-    @test typeof(res3) == Array{Int64,2}
+    @test typeof(res3) == Array{Float64,2}
 end
