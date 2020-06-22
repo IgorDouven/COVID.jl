@@ -3,8 +3,9 @@
 Julia package for agent-based modeling of COVID-19 outbreaks and possible intervention strategies.
 
 ## Installation
+This package can be installed via Julia's package manager. From the Julia REPL, type `]` to enter Pkg REPL mode, and then execute
 ```julia
-] add https://github.com/IgorDouven/COVID.jl
+pkg> add https://github.com/IgorDouven/COVID.jl
 ```
 ## Basic usage
 To use default parameter setting:
