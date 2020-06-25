@@ -96,4 +96,4 @@ run_evo(params, 150, 15, 24)
 
 This outputs the Pareto-optimal solutions. One can also obtain the full information about each generation (agent properties as well as scores) by running `run_evo(params, 150, 15, 24, full=true)`.
 
-**NB**: the above code took over two hours to finish on a 24-core machine.
+**NB**: The above code took over two hours to finish on a 24-core machine.
