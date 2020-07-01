@@ -28,7 +28,7 @@ function create_model(N::Int, λ::Float64, hhs::Float64)
     links = [ length(neighbors(g, i)) for i in 1:N ]
     quasi_isolated = collect(1:N)[links .< 2]
     inds = [ pop[i].pos ∉ quasi_isolated for i in 1:length(pop) ]
-    ag_zeros = sample(collect(1:length(pop))[inds], length(pop) ÷ 100, replace=false) # around 1 percent of population is infected
+    ag_zeros = sample(collect(1:length(pop))[inds], length(pop) ÷ 100, replace=false) # 1 percent of population is infected
     for i in ag_zeros
         pop[i] = Agent(pop[i].pos, 1, :I)
     end
