@@ -98,8 +98,8 @@ function intervene(ps::ParameterSetting, p::Proposal, numb_updates::Int; init_w 
     @inbounds for i in 1:numb_updates - window
         x = [ones(window) 1:window]
         y = daily_inf[end - (window - 1):end]
-        cf = x \ y
-        pq = pq + (cf[2] * scale)
+        _, cf = x \ y
+        pq = pq + (cf * scale)
         w = rich_scaled(pq)
         model_update!(ppl, grph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death)
         push!(daily_inf, sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :I)))
