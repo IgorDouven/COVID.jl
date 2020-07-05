@@ -17,7 +17,7 @@ mutable struct Agent
 end
 
 function create_model(N::Int, λ::Float64, hhs::Float64)
-    g = LightGraphs.SimpleGraph(LightGraphs.Generators.ErdosRenyi(N, round(Int, binomial(N, 2)*λ)))	
+    g = LightGraphs.erdos_renyi(N, λ)	
     pop = Agent[]
     for i in 1:N
         r = 1 + rand(Poisson(hhs - 1.)) 
@@ -36,7 +36,7 @@ function create_model(N::Int, λ::Float64, hhs::Float64)
 end
 
 function meet(p::Array{Agent,1}, 
-              g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64}, 
+              g::LightGraphs.SimpleGraph{Int64}, 
               a::Agent, 
               w::Float64,
               max_tspan::Int,
@@ -58,7 +58,7 @@ function meet(p::Array{Agent,1},
 end
 
 function contagion!(p::Array{Agent,1}, 
-                    g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64}, 
+                    g::LightGraphs.SimpleGraph{Int64}, 
                     w::Float64,
                     max_tspan::Int,
                     pr_quick_rec::Float64,
@@ -136,7 +136,7 @@ function retrieve_data(p::Array{Agent,1})
 end
 
 function model_update!(p::Array{Agent,1}, 
-                       g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64}, 
+                       g::LightGraphs.SimpleGraph{Int64}, 
                        w::Float64, 
                        max_tspan::Int, 
                        pr_quick_rec::Float64, 
@@ -150,7 +150,7 @@ function model_update!(p::Array{Agent,1},
 end
 
 function abm_run(p::Array{Agent,1}, 
-                 g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64}, 
+                 g::LightGraphs.SimpleGraph{Int64}, 
                  w::Float64, 
                  mt::Int,
                  pqr::Float64,
@@ -166,7 +166,7 @@ function abm_run(p::Array{Agent,1},
 end
 
 function abm_switch(p::Array{Agent,1},
-                    g::LightGraphs.SimpleGraphsCore.SimpleGraph{Int64},
+                    g::LightGraphs.SimpleGraph{Int64},
                     N::Int,
                     sps::Array{Tuple{Float64,Int64},1},
                     mt::Int,
