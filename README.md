@@ -21,7 +21,7 @@ This sets the values of eight parameters:
 - `drop` (type: `Int`): by how much the infectiousness drops if the infection last longer than half of `max_tspan`, by default 4;
 - `pr_death` (type: `Float64`): probability of death of an infected agent, by default .1;
 - `N` (type: `Int`): number of households, by default 1000;
-- `λ` (type: `Float64`): probability that two nodes are connected, by default .0125;
+- `λ` (type: `Float64`): probability that two nodes are connected, by default 1.25 percent;
 - `hhs` (type: `Float64`): average household size, by default 4.
 
 The default settings can be changed. For instance, to change the maximum duration of infection, `max_tspan`, to 20 days and the average household size, `hhs` to 6.5, enter
