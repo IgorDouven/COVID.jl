@@ -1,6 +1,4 @@
-richard(x::Float64, A::Float64, B::Float64, K::Float64, Q::Float64, ν::Float64) = A + ((K - A) / (1 + Q*exp(-B*x))^(1/ν))
-
-rich_scaled(x::Float64) = richard(x, .0, 1., .95, 1., 1.)
+rich_scaled(x::Float64) = .95 / (1 + exp(-x))
 
 function run_model(ps::ParameterSetting, scale::Float64, window::Int, numb_updates::Int; init_w=.5)
     @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
@@ -25,8 +23,8 @@ function run_model(ps::ParameterSetting, scale::Float64, window::Int, numb_updat
     @inbounds for i in window + 1:numb_updates
         x = [ones(window) 1:window]
         y = daily_inf[i - window:i - 1]
-        cf = x \ y
-        ps = ps + (cf[2] * scale)
+        _, cf = x \ y
+        ps = ps + (cf * scale)
         w = rich_scaled(ps)
         model_update!(ppl, grph, w, max_tspan, pr_quick_rec, trans_rate, drop, pr_death)
         daily_sus[i] = sum(Int.([ ppl[j].status for j in 1:length(ppl) ] .== :S))
