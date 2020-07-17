@@ -125,8 +125,8 @@ function recover_or_not!(p::Array{Agent,1},
 end
 
 function retrieve_data(p::Array{Agent,1})
-	res = Array{Int64,2}(undef, p[end].pos, 4)
-	@inbounds for n in 1:p[end].pos
+    res = Array{Int64,2}(undef, p[end].pos, 4)
+    @inbounds for n in 1:p[end].pos
         p_sel_ind = Bool[ p[i].pos == n for i in 1:length(p) ]
         p_sel = p[p_sel_ind]
         household_stat = Symbol[ p_sel[i].status for i in 1:length(p_sel) ]
