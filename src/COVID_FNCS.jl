@@ -68,21 +68,21 @@ function contagion!(p::Array{Agent,1},
     s = shuffle(1:length(p))
     @inbounds for a in s
         m = meet(p, g, p[a], w, max_tspan, pr_quick_rec)
-        hh_sel_ind = [ p[i].pos == m for i in 1:length(p) ]
+        hh_sel_ind = Bool[ p[i].pos == m for i in 1:length(p) ]
         hh_sel = p[hh_sel_ind]
         group = vcat(hh_sel, p[a])
-        numb_inf_short = sum([ group[i].status == :I for i in 1:length(group) ] ∩ 
-            [ group[i].tspan <= ts for i in 1:length(group) ])
-        numb_inf_long = sum([ group[i].status == :I for i in 1:length(group) ] ∩ 
-            [ group[i].tspan > ts for i in 1:length(group) ])
-        while (numb_inf_short = numb_inf_short - 1) >= 0
+        numb_inf_short = sum(Bool[ group[i].status == :I for i in 1:length(group) ] ∩ 
+            Bool[ group[i].tspan ≤ ts for i in 1:length(group) ])
+        numb_inf_long = sum(Bool[ group[i].status == :I for i in 1:length(group) ] ∩ 
+            Bool[ group[i].tspan > ts for i in 1:length(group) ])
+        while (numb_inf_short = numb_inf_short - 1) ≥ 0
             @inbounds for i in 1:length(group)
                 if group[i].status == :S && rand(Bernoulli(trans_rate))
                     group[i].status = :I
                 end
             end
         end
-        while (numb_inf_long = numb_inf_long - 1) >= 0
+        while (numb_inf_long = numb_inf_long - 1) ≥ 0
             @inbounds for i in 1:length(group)
                 if group[i].status == :S && rand(Bernoulli(trans_rate/drop))
                     group[i].status = :I
@@ -93,7 +93,7 @@ function contagion!(p::Array{Agent,1},
 end
 
 function update_infection_duration!(p::Array{Agent,1})
-    ind = [ p[i].status == :I for i in 1:length(p) ]
+    ind = Bool[ p[i].status == :I for i in 1:length(p) ]
     p = p[ind]
     @inbounds for i in 1:length(p)
         p[i].tspan += 1
@@ -125,12 +125,12 @@ function recover_or_not!(p::Array{Agent,1},
 end
 
 function retrieve_data(p::Array{Agent,1})
-    res = Array{Int64,2}(undef, p[end].pos, 4)
-    @inbounds for n in 1:p[end].pos
-        p_sel_ind = [ p[i].pos == n for i in 1:length(p) ]
+	res = Array{Int64,2}(undef, p[end].pos, 4)
+	@inbounds for n in 1:p[end].pos
+        p_sel_ind = Bool[ p[i].pos == n for i in 1:length(p) ]
         p_sel = p[p_sel_ind]
-        household_stat = [ p_sel[i].status for i in 1:length(p_sel) ]
-        res[n, :] = [ count(i->i==X, household_stat) for X in [:S, :I, :R, :D] ]
+        household_stat = Symbol[ p_sel[i].status for i in 1:length(p_sel) ]
+        res[n, :] = Int[sum(==(:S), household_stat), sum(==(:I), household_stat), sum(==(:R), household_stat), sum(==(:D), household_stat)]
     end
     return res
 end
