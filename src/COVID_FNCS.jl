@@ -25,9 +25,9 @@ function create_model(N::Int, λ::Float64, hhs::Float64)
             push!(pop, Agent(i, 0, :S))
         end
     end
-    links = [ length(neighbors(g, i)) for i in 1:N ]
+    links = Int[ length(neighbors(g, i)) for i in 1:N ]
     quasi_isolated = collect(1:N)[links .< 2]
-    inds = [ pop[i].pos ∉ quasi_isolated for i in 1:length(pop) ]
+    inds = Bool[ pop[i].pos ∉ quasi_isolated for i in 1:length(pop) ]
     ag_zeros = sample(collect(1:length(pop))[inds], length(pop) ÷ 100, replace=false) # 1 percent of population is infected
     for i in ag_zeros
         pop[i] = Agent(pop[i].pos, 1, :I)
@@ -42,13 +42,13 @@ function meet(p::Array{Agent,1},
               max_tspan::Int,
               pr_quick_rec::Float64)
     ts = max_tspan * pr_quick_rec
-    if a.status == :S || (0 < a.tspan <= ts)
+    if a.status == :S || (0 < a.tspan ≤ ts)
         nbs = neighbors(g, a.pos) # list all neighbors
         weight_lst = Int[]
         @inbounds for i in nbs
-            p_sel_ind = [ p[j].pos == i for j in 1:length(p) ]
+            p_sel_ind = Bool[ p[j].pos == i for j in 1:length(p) ]
             p_sel = p[p_sel_ind]
-            sel_ag = [ p_sel[j].status == :S || (0 < p_sel[j].tspan <= ts) for j in 1:length(p_sel) ]
+            sel_ag = Int[ p_sel[j].status == :S || (0 < p_sel[j].tspan ≤ ts) for j in 1:length(p_sel) ]
             push!(weight_lst, length(sel_ag))
         end
         s = isempty(weight_lst) ? a.pos : sample(nbs, Weights(weight_lst))
