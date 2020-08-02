@@ -5,7 +5,7 @@ function cvd_plot(res::Array{Int64,2}; sird=false)
             label = ["Susceptible" "Infected" "Recovered" "Deceased"], 
             xlabel = "Time",
             ylabel = "Count",
-            linewidth = 3)
+            linewidth = 2)
     else
         rec = res[:, 3] .+ res[:, 4]
         dat = hcat(res[:, 2], rec)    
@@ -13,7 +13,7 @@ function cvd_plot(res::Array{Int64,2}; sird=false)
             label = ["Infected" "Recovered"], 
             xlabel = "Time",
             ylabel = "Count",
-            linewidth = 3)
+            linewidth = 2)
     end
 end
 
@@ -23,7 +23,7 @@ function cvd_plot(res::Array{Float64,2}; sird=false)
         plot(0:l - 1, res[:, 1:4], 
             label = ["Susceptible" "Infected" "Recovered" "Deceased"],
             ylabel = "Count",
-            linewidth = 3)
+            linewidth = 2)
     else
         rec = res[:, 3] .+ res[:, 4]
         dat = hcat(res[:, 2], rec)    
@@ -31,8 +31,8 @@ function cvd_plot(res::Array{Float64,2}; sird=false)
             label = ["Infected" "Recovered"], 
             xlabel = "Time",
             ylabel = "Count",
-            linewidth = 3)
+            linewidth = 2)
     end
-    p2 = plot(0:l - 1, res[:, 5], legend = false, xlabel = "Time", ylabel = "Weight", linewidth = 3)
+    p2 = plot(0:l - 1, res[:, 5], legend = false, xlabel = "Time", ylabel = "Weight", linewidth = 2)
     return plot(p1, p2, layout = (2, 1))
 end
