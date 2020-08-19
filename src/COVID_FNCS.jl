@@ -1,4 +1,4 @@
-# default parameter settings justified by what has been reported about COVID-19 up till beginning of June, 2020
+# default parameter settings justified by what has been reported about COVID-19 up till beginning of July, 2020
 @with_kw struct ParameterSetting
     max_tspan::Int = 24 # maximum duration of infection
     pr_quick_rec::Float64 = .5 # half the infected recover in `max_tspan`/2 days
