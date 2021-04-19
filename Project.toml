@@ -1,6 +1,6 @@
 name = "COVID"
 uuid = "77591689-2299-4e32-8ad7-fb9e3aaf9ec7"
-authors = ["Igor Douven <igor.douven@gmail.com> and contributors"]
+authors = ["Igor Douven <igor.douven@gmail.com>"]
 version = "0.1.0"
 
 [deps]
