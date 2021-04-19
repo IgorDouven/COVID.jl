@@ -1,6 +1,6 @@
 function cvd_plot(res::Array{Int64,2}; sird=false)
     l, _ = size(res)
-    if sird == true
+    if sird
         plot(0:l - 1, res, 
             label = ["Susceptible" "Infected" "Recovered" "Deceased"], 
             xlabel = "Time",
@@ -19,7 +19,7 @@ end
 
 function cvd_plot(res::Array{Float64,2}; sird=false)
     l, _ = size(res)
-    p1 = if sird == true
+    p1 = if sird
         plot(0:l - 1, res[:, 1:4], 
             label = ["Susceptible" "Infected" "Recovered" "Deceased"],
             ylabel = "Count",
