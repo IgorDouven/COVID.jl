@@ -12,9 +12,9 @@ export
     cvd_plot
 
 using Distributed
+using LinearAlgebra
 using Distributions
 using Distances
-using LinearAlgebra
 using DataFrames
 using Random
 using StatsBase
