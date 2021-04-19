@@ -1,6 +1,6 @@
-rich_scaled(x::Float64) = .95 / (1 + exp(-x))
+rich_scaled(x::Float64) = 0.95 / (1 + exp(-x))
 
-function run_model(ps::ParameterSetting, scale::Float64, window::Int, numb_updates::Int; init_w=.5)
+function run_model(ps::ParameterSetting, scale::Float64, window::Int, numb_updates::Int; init_w=0.5)
     @unpack max_tspan, pr_quick_rec, trans_rate, drop, pr_death, N, λ, hhs = ps
     ppl, grph = create_model(N, λ, hhs)
     s = vcat(dropdims(sum(retrieve_data(ppl), dims=1), dims=1), init_w)
@@ -19,7 +19,7 @@ function run_model(ps::ParameterSetting, scale::Float64, window::Int, numb_updat
         wgts[i] = init_w
     end
 
-    ps = .0
+    ps = 0.
     @inbounds for i in window + 1:numb_updates
         x = [ones(window) 1:window]
         y = daily_inf[i - window:i - 1]
