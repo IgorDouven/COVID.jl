@@ -43,13 +43,13 @@ Assuming the settings of the example, the following plots the infected and recov
 ```julia
 cvd_plot(res)
 ```
-![Results of updating the model for 100 time steps, showing the infected and recovered](./doc/IR.png)
+![Results of updating the model for 100 time steps, showing the infected and recovered](./doc/ir.png)
 
 If one would like to see a full SIRD output (so also plotting the susceptibles and showing separately the really recovered and the deceased), run
 ```julia
 cvd_plot(res, sird=true)
 ```
-![Same results, now showing also the susceptibles and separating the really recovered from the deceased](./doc/SIRD.png)
+![Same results, now showing also the susceptibles and separating the really recovered from the deceased](./doc/sird.png)
 
 To study the effect of changing the probability of staying at home, one can do, for instance,
 ```julia
@@ -57,7 +57,7 @@ switch_pts = repeat([(.3, 10), (.9, 15), (.6, 10)], outer=3)
 res = run_model(params, switch_pts)
 ```
 which updates the model during 10 steps assuming a probability of .3, followed by 15 steps assuming a probability of .9, followed by 10 steps assuming a probability of .6, and this repeated thrice. This yields the following result:
-![Updating the model while switching the stay-at-home probability at various points in time](./doc/switch_SIRD.png)
+![Updating the model while switching the stay-at-home probability at various points in time](./doc/switch_sird.png)
 
 ## Flexible lockdowns
 We closely monitor the trend in the number of new daily infections and accordingly adjust the weight (the probability that people will stay home rather than go out to visit someone in their network). In this system of 'flexible lockdowns', there are two free parameters, the size of the sliding window used for the local regressions, and the scaling factor, which scales the local regression coefficient to adjust the weight. In the example below, we use the same model parameters as above and assume a scaling factor of 0.025 and a window size of 6 to update the model for 300 time steps:
@@ -72,7 +72,7 @@ cvd_plot(res, sird=true)
 
 which yields the following result:
 
-![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/flex.png)
+![Flexible lockdowns, upper row showing results, bottom row showing weight](./doc/flexi.png)
 
 ## Evolutionary computing
 To find the Pareto-optimal solutions to the question of which window size and which scaling factor to use, we recruit an evolutionary algorithm, more exactly the NSGA-II algorithm (N. Srinivas & K. Deb, 1994, "Multiobjective Optimization Using Nondominated Sorting in Genetic Algorithms," _Evolutionary Computing_, **2**, pp. 221-48). The objective functions to jointly minimize are:
